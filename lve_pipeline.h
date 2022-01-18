@@ -12,9 +12,13 @@ namespace lve {
 	{ // we will explicitely set the different value of each stage of our pipeline and how it will work
 		// this will be initialised in the  defaultPipelineConfigInfo function !
 		//REALLY INTERESTING AND IMPORANT TO UNDERSTAND THOSE 
+		PipelineConfigInfo(const PipelineConfigInfo&) = delete;  // delete copy constructor
+		PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
+		PipelineConfigInfo() = default;// default constructor
+		VkPipelineViewportStateCreateInfo viewportInfo;
 		VkViewport viewport;
 		VkRect2D scissor;
-		
+		//VkPipelineViewportStateCreateInfo viewportInfo; Fixing mistake
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 		VkPipelineMultisampleStateCreateInfo multisampleInfo;
@@ -45,7 +49,10 @@ namespace lve {
 		void operator=(const LvePipeline&) = delete;
 
 
-		static PipelineConfigInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);// static function to create a default  PipelineConficInfo structure
+
+		void bind(VkCommandBuffer commandBuffer);// bind graphic pipeline to a commandbuffer
+
+		static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo, uint32_t width, uint32_t height);// static function to create a default  PipelineConficInfo structure
 
 	private:
 		static std::vector<char> readFile(const std::string& filepath); // returns a string of char , takes in a ref of a string

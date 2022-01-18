@@ -98,15 +98,17 @@ namespace lve {
 		vertexInputInfo.pVertexBindingDescriptions = nullptr;
 
 		// local viewport info variable 
-		VkPipelineViewportStateCreateInfo viewportInfo{}; // initialise the struct with its argument to either 0 , null or nullptr
+		//VkPipelineViewportStateCreateInfo viewportInfo{}; // initialise the struct with its argument to either 0 , null or nullptr
 		// WE Then combine our viewport and scissor into one strucutre that is called a viewport_state_create_info variable////////////////////////////////////////////////////////////////////
 		//this has been moved here from deefaultpipelineconfig  bc we could have issues where the viewportinfo of different pieplines would be pointing to the same scissor and viewport. If we dealocate one pipeline it would
 		//delete thaose and we would have crashed https://www.youtube.com/watch?v=IUYH74MqxOA  5:00
-		viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-		viewportInfo.viewportCount = 1; // on some graphic cards it is possible to use multiple viewport and scissors by enabling gpu features
-		viewportInfo.pViewports = &configInfo.viewport;
-		viewportInfo.scissorCount = 1;
-		viewportInfo.pScissors = &configInfo.scissor;
+		// 
+		// Self referencing bug , we will pass config info as an argument
+		//viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		//viewportInfo.viewportCount = 1; // on some graphic cards it is possible to use multiple viewport and scissors by enabling gpu features
+		//viewportInfo.pViewports = &configInfo.viewport;
+		//viewportInfo.scissorCount = 1;
+		//viewportInfo.pScissors = &configInfo.scissor;
 
 
 
@@ -119,7 +121,7 @@ namespace lve {
 		pipelineInfo.pVertexInputState = &vertexInputInfo; // object created just above  , becasue we separated our pipeline creation from our pipeline configuration we need to link everyhting up , 
 		// but we can reuse this code if we want to make different pipelines !"
 		pipelineInfo.pInputAssemblyState = &configInfo.inputAssemblyInfo;
-		pipelineInfo.pViewportState = &viewportInfo;
+		pipelineInfo.pViewportState = &configInfo.viewportInfo;
 		pipelineInfo.pRasterizationState = &configInfo.rasterizationInfo;
 		pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
 		pipelineInfo.pColorBlendState = &configInfo.colorBlendInfo;
@@ -165,11 +167,10 @@ namespace lve {
 
 
 
-	PipelineConfigInfo LvePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)// static function to create a default  PipelineConficInfo structure
-	{
-
+	void LvePipeline::defaultPipelineConfigInfo(
+		PipelineConfigInfo& configInfo, uint32_t width, uint32_t height) {
 		//REALLY INTERESTING AND IMPORANT TO UNDERSTAND THOSE //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		PipelineConfigInfo configInfo{}; // constructor
+		 
 
 		//https://www.youtube.com/watch?v=ecMcXW6MSYU  ///////////////////////////////////////////////////////////////////////////////
 
@@ -203,9 +204,25 @@ namespace lve {
 		configInfo.scissor.offset = { 0, 0 }; // everytrianglkke outisde of the scissor rectangle will be discarded , it is culling ,view fustrum
 		configInfo.scissor.extent = { width, height };
 
+		//Self referencing bug
+
+		configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		configInfo.viewportInfo.viewportCount = 1;
+		configInfo.viewportInfo.pViewports = &configInfo.viewport;
+		configInfo.viewportInfo.scissorCount = 1;
+		configInfo.viewportInfo.pScissors = &configInfo.scissor;
 
 
-		
+
+		//  REMOVED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//this has been moved here from deefaultpipelineconfig  bc we could have issues where the viewportinfo of different pieplines would be pointing to the same scissor and viewport. If we dealocate one pipeline it would
+		//delete thaose and we would have crashed https://www.youtube.com/watch?v=IUYH74MqxOA  5:00
+		//configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		//configInfo.viewportInfo.viewportCount = 1; // on some graphic cards it is possible to use multiple viewport and scissors by enabling gpu features
+		//configInfo.viewportInfo.pViewports = &configInfo.viewport;
+		//configInfo.viewportInfo.scissorCount = 1;
+		//configInfo.viewportInfo.pScissors = &configInfo.scissor;
+		//REMOVED ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//Rasterisations stage/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// 
@@ -281,11 +298,15 @@ namespace lve {
 		configInfo.depthStencilInfo.back = {};   // Optional
 
 
-		return configInfo;
+	
 	 }
 
 
+	 void LvePipeline::bind(VkCommandBuffer commandBuffer) // bind graphic pipeline to a commandbuffer
+	 {
+		 vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline); // this signals that this is a graphic piepline , there are other types of pipeline , compute pipeline and ray tracing pipelines
 
+	 }
 
 
 

@@ -11,9 +11,15 @@
 
 namespace lve {
 
+    //This deals handles the synchronisation and setup for double and triple framebuffers based on device  , also create framebufffer objects and their colorbuffer and depth attachment for our
+//graphic pipeline to use while rendering 
+
+// Will come back to it for advacned subject like offscreen frame buffer for shadows rednindering
+
+
 class LveSwapChain {
  public:
-  static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
+  static constexpr int MAX_FRAMES_IN_FLIGHT = 2; // WE CAN AT MOST HAVE TWO COMMAND BUFFER IN THE PENDING STATE
 
   LveSwapChain(LveDevice &deviceRef, VkExtent2D windowExtent);
   ~LveSwapChain();
