@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "lve_model.h"
 #include "lve_window.h"
 #include "lve_pipeline.h"
 #include "lve_device.h"
@@ -27,10 +27,13 @@ namespace lve {
 		
 	private:
 
+		void loadModels();
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers(); // in vulkan , no directly command with function calls , we use a command buffer that stores instrcution and goes in a device queue to be executed , this allow for sequences of command to be recorded 
 		void drawFrame();
+
+		void sierpinski(std::vector<LveModel::Vertex>& vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
 
 		LveWindow lveWindow{ WIDTH, HEIGHT,"Hello Vulkan!" }; //https://www.youtube.com/watch?v=1nfuYMXjZsA   , https://www.youtube.com/watch?v=FXhALMsHwEY&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=25
 		// not using a pointer or any dynamic memory allocation 
@@ -44,12 +47,7 @@ namespace lve {
 		// Unique poitner is a scoped poitner , when we going out of scope this pointer is deleted , you cant copy a unique pointer , stack allocator object
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
-
-
-
-
-
-		//LvePipeline lvePipeline{lveDevice,"shaders/simple_shader.vert.spv","shaders/// simple_shader.frag.spv",LvePipeline::defaultPipelineConfigInfo(WIDTH,HEIGHT) };  OLD CODE WE MOVED IT 
+		std::unique_ptr<LveModel> lveModel; // creating a smart pointer , allocate on the heap  , memory gets freed automatically by the smart pointer,   
 	};
 
 

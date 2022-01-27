@@ -130,7 +130,8 @@ void LveSwapChain::createSwapChain() {
   SwapChainSupportDetails swapChainSupport = device.getSwapChainSupport();
 
   VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats); 
-  VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes); // depending on our graphic device it is settupt to choose the mailbox present mode per default and Vsync as fallback
+  VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes); // depending on our graphic device it is settupt to choose the mailbox present mode per default
+  //and Vsync as fallback
   //  present mopde define how our swap chain handle  synchroniation  with the display
   // by default it will be vsyn " FIFO" see explaination  https://www.youtube.com/watch?v=IUYH74MqxOA https://vulkan-tutorial.com/Drawing_a_triangle/Presentation/Swap_chain
   VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
@@ -189,7 +190,7 @@ void LveSwapChain::createSwapChain() {
   swapChainExtent = extent;
 }
 
-void LveSwapChain::createImageViews() {
+void LveSwapChain::createImageViews () {
   swapChainImageViews.resize(swapChainImages.size());
   for (size_t i = 0; i < swapChainImages.size(); i++) {
     VkImageViewCreateInfo viewInfo{};

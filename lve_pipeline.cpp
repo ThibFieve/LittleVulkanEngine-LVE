@@ -3,6 +3,7 @@
 
 
 #include "lve_pipeline.h"
+#include "lve_model.h"
 //standar library std
 #include <fstream>
 #include <stdexcept>
@@ -16,7 +17,7 @@ namespace lve {
 		LveDevice& device,
 		const std::string& vertFilepath, 
 		const std::string& fragFilepath, 
-		const PipelineConfigInfo& configInfo ) : lveDevice{ device }// the varaible lveDevice = the value entered in teh constructor as device
+		const PipelineConfigInfo& configInfo ) : lveDevice{ device }// the varaible lveDevice = the value entered in the constructor as device
 	{//constructor 
 		createGraphicPipeline(vertFilepath, fragFilepath , configInfo);
 
@@ -30,6 +31,7 @@ namespace lve {
 	}
 
 	
+
 
 
 	std::vector<char> LvePipeline::readFile(const std::string& filepath) {
@@ -89,13 +91,24 @@ namespace lve {
 		shaderStages[1].pNext = nullptr;
 		shaderStages[1].pSpecializationInfo = nullptr; // mechanism to customize shader functionality
 
+
+
+
+
+
 		// create a new local variable of type
+		//This is where the info about the vertex buffer will be stored tutorial 6
+		auto bindingDescriptions = LveModel::Vertex::getBindingDescriptions(); // see Model.cpp implementation
+		auto attributeDescriptions = LveModel::Vertex::getAttributeDescriptions(); // se model.cpp implementationa nd vertex buffer lesson 
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{}; // sthis struct describe how we interprete our vertex sahder data that is the inital input of the graphjic pipeline
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertexInputInfo.vertexAttributeDescriptionCount = 0; // since we hardcoded the vertex data directly into the shader  so we are not suppliying any data to it as of yet
-		vertexInputInfo.vertexBindingDescriptionCount = 0;
-		vertexInputInfo.pVertexAttributeDescriptions = nullptr;
-		vertexInputInfo.pVertexBindingDescriptions = nullptr;
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size()); 
+		vertexInputInfo.vertexBindingDescriptionCount = static_cast<uint32_t>(bindingDescriptions.size());
+		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+		vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions.data();
+
+
+
 
 		// local viewport info variable 
 		//VkPipelineViewportStateCreateInfo viewportInfo{}; // initialise the struct with its argument to either 0 , null or nullptr
@@ -128,7 +141,7 @@ namespace lve {
 		pipelineInfo.pDepthStencilState = &configInfo.depthStencilInfo;// optional setting for changing the pipeline dynamically without needing to recreate the pipeline
 		pipelineInfo.pDynamicState = nullptr;
 
-		pipelineInfo.layout = configInfo.pipelineLayout;  // WE HAVE NOT CONFIGURED THOSE YET SO IF WE RUN THE PROGRAM WE WILL GET AN ERROR CRASH
+		pipelineInfo.layout = configInfo.pipelineLayout;  // WE HAVE NOT CONFIGURED THOSE YET SO IF WE RUN THE PROGRAM WE WILL GET AN ERROR CRASH ,// now it is done in first app
 		pipelineInfo.renderPass = configInfo.renderPass;// WE WILL SEE BY RUNNING THAT THE VALIDATION LAYER HELPS US OUT TO FIND THE ISSUE , toerhwise it would crash we would not know why  , right now assigned to nullptr
 		pipelineInfo.subpass = configInfo.subpass;
 
@@ -152,7 +165,8 @@ namespace lve {
 		//common pattern instead of calling a function with  a bunch of paramter , we conmfigure a strcut and call a function  with a pointer to the struct
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO; // the type of that structure is a VK structure shader module create info
 		createInfo.codeSize = code.size();// the code size is the size of the array
-		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data()); // a uint32 and charcther are not the same size so we gotta be carful with it ,We need to cast the code from being char to being uint32 as vulkan expect it to be uint32
+		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data()); // a uint32 and charcther are not the same size so we gotta be carful with it 
+		//,We need to cast the code from being char to being uint32 as vulkan expect it to be uint32
 		// becasue our data is stored in a vector , this cast will work , however C style characther array that wouldnt be a valid cast . 
 
 

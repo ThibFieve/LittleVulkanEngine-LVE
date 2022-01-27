@@ -9,6 +9,7 @@ namespace lve {
 
 	FirstApp::FirstApp()
 	{
+		loadModels();
 		createPipelineLayout();
 		createPipeline();
 		createCommandBuffers();
@@ -36,6 +37,50 @@ namespace lve {
 
 	}
 
+
+
+	void FirstApp::sierpinski(
+
+		// THIS SOLUTION IS PROVIDED BY Brendan Galea https://www.youtube.com/watch?v=mnKp501RXDc for testing and exercises purposes.
+		std::vector<LveModel::Vertex>& vertices,
+		int depth,
+		glm::vec2 left,
+		glm::vec2 right,
+		glm::vec2 top) {
+		if (depth <= 0) {
+			vertices.push_back({ top });
+			vertices.push_back({ right });
+			vertices.push_back({ left });
+		}
+		else {
+			auto leftTop = 0.5f * (left + top);
+			auto rightTop = 0.5f * (right + top);
+			auto leftRight = 0.5f * (left + right);
+			sierpinski(vertices, depth - 1, left, leftRight, leftTop);
+			sierpinski(vertices, depth - 1, leftRight, right, rightTop);
+			sierpinski(vertices, depth - 1, leftTop, rightTop, top);
+		}
+	}
+
+
+	// Load models , lesson 6 , vertex buffer
+	void FirstApp::loadModels()
+	{
+
+		// FOR A SIMPLE TESTING TRIANGLE 
+		
+		//std::vector<LveModel::Vertex> vertices{ // this { initialise the vector
+		//	{{0.0f,-0.5f}}, // { this is for the struct{ this is a tuple , glm:vec2 position}}
+		//	{{0.5f,0.5f}},
+		//	{{-0.5f,0.5f}},
+		//};
+
+		// For 
+		std::vector<LveModel::Vertex> vertices{};
+		sierpinski(vertices, 5, { -0.5f, 0.5f }, { 0.5f, 0.5f }, { 0.0f, -0.5f });
+
+		lveModel = std::make_unique<LveModel>(lveDevice, vertices);
+	}
 
 	void FirstApp::createPipelineLayout() 
 	{ // Empty layout 
@@ -128,7 +173,8 @@ namespace lve {
 				//Cant have both inline command and secondary cmd buffer simultaneously
 
 			lvePipeline->bind(commandBuffers[i]); // we implemented that in lvepipeline
-			vkCmdDraw(commandBuffers[i], 3, 1, 0, 0); // draw 3 vertices but only one instance
+			lveModel->bind(commandBuffers[i]);
+			lveModel->draw(commandBuffers[i]);
 
 			vkCmdEndRenderPass(commandBuffers[i]);
 			if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS)

@@ -32,7 +32,8 @@ namespace lve {
 
 
 	};
-	// The reason it's out of pipeline class is because we want our application layer to be easily able to reach and configure a pipeline compeltely as well as to sahre the configuration between mutliple pilenine
+	// The reason it's out of pipeline class is because we want our application layer to be easily able to reach and configure a pipeline compeltely as well as to sahre
+	//the configuration between mutliple pilenine
 
 
 
@@ -60,7 +61,8 @@ namespace lve {
 
 		void createShaderModule(const std::vector<char>& code, VkShaderModule* shaderModule); //takes as input the shader code as a vector of carachter , shaderModule is a pointer to a pointer !
 
-		LveDevice& lveDevice; // private member variable storinng the device reference,  could be memory unsafe if  our device is realesed from memory before the pipeline , we could try to dereference a dangling pointer, would crash the program.
+		LveDevice& lveDevice; // private member variable storinng the device reference,  could be memory unsafe if  our device is realesed from memory before the pipeline ,
+		//we could try to dereference a dangling pointer, would crash the program.
 		//This is a reference type member varaible , it should implicitely outlive the class it lives on it .
 		VkPipeline graphicsPipeline; // handle to vulkan pipeline object , it's a pointer !
 		VkShaderModule vertShaderModule; // shader module variable for vert shader

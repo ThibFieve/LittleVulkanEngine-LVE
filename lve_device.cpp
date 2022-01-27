@@ -66,7 +66,8 @@ void DestroyDebugUtilsMessengerEXT(
 // class member functions 
 LveDevice::LveDevice(LveWindow &window) : window{window} {   // CONSTRUCTOR 
   createInstance(); // CREATE A VULKAN INSTANCE , initanlise the vulkan library and is the connectio0n between or application and vulkan
-  setupDebugMessenger(); // Validation layers , by default the vulkan API has very smal validation layer and error handling , small error wont get caught and ends up in crash , for debugging this shold be enabled , and disabled for realease
+  setupDebugMessenger(); // Validation layers , by default the vulkan API has very smal validation layer and error handling ,
+  //small error wont get caught and ends up in crash , for debugging this shold be enabled , and disabled for realease
   createSurface(); // create surface relying on GLFW , connection between the window i created and vulkan ability to display result
   pickPhysicalDevice(); // pick the physical device , is the graphic hardware 
   createLogicalDevice(); // create logical device , what features of our physical device we want to use
@@ -420,7 +421,10 @@ uint32_t LveDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags pr
   throw std::runtime_error("failed to find suitable memory type!");
 }
 
-void LveDevice::createBuffer(
+
+
+void LveDevice::createBuffer( // Helper function used in Model.cpp , it's a out function , you pass buffer and bufferMemory in and they will be changed
+    // When we will integrate a memory allocator we will need to rewrtie this function 
     VkDeviceSize size,
     VkBufferUsageFlags usage,
     VkMemoryPropertyFlags properties,
@@ -432,24 +436,27 @@ void LveDevice::createBuffer(
   bufferInfo.usage = usage;
   bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-  if (vkCreateBuffer(device_, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) {
+  if (vkCreateBuffer(device_, &bufferInfo, nullptr, &buffer) != VK_SUCCESS) { // Create/ fill in the  the vkbuffer object
     throw std::runtime_error("failed to create vertex buffer!");
   }
 
-  VkMemoryRequirements memRequirements;
+  VkMemoryRequirements memRequirements;  // Create memory of proper size
   vkGetBufferMemoryRequirements(device_, buffer, &memRequirements);
 
-  VkMemoryAllocateInfo allocInfo{};
+  VkMemoryAllocateInfo allocInfo{}; // with all its appropriate properties
   allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
   allocInfo.allocationSize = memRequirements.size;
   allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
-  if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
+  if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) { // Create/fill in  the Vkmemory object 
     throw std::runtime_error("failed to allocate vertex buffer memory!");
   }
 
-  vkBindBufferMemory(device_, buffer, bufferMemory, 0);
+  vkBindBufferMemory(device_, buffer, bufferMemory, 0);// Bind the buffer to the memory we just allocated 
 }
+
+
+
 
 VkCommandBuffer LveDevice::beginSingleTimeCommands() {
   VkCommandBufferAllocateInfo allocInfo{};
