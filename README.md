@@ -1,7 +1,7 @@
 # LittleVulkanEngine-LVE
 
 Little Vulkan Engine
-Documentation avaialbe in the documentation folder.
+Documentation availabe in the documentation folder.
 
 https://github.com/ThibFieve/LittleVulkanEngine-LVE/blob/main/Documentation/Little_Vulkan_Engine_Triangle.pdf
 
