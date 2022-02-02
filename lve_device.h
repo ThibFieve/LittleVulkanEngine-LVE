@@ -34,8 +34,8 @@ class LveDevice {
   ~LveDevice();
 
   // Not copyable or movable
-  LveDevice(const LveDevice &) = delete;
-  void operator=(const LveDevice &) = delete;
+  LveDevice(const LveDevice &) = delete;// Removing the copy constructor
+  LveDevice& operator=(const LveDevice &) = delete;
   LveDevice(LveDevice &&) = delete;
   LveDevice &operator=(LveDevice &&) = delete;
 

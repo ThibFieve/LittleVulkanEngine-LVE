@@ -90,17 +90,25 @@ namespace lve
 		bindingDescriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX; // other option is for instanced data
 		return bindingDescriptions; // this binding descriptions corresponds to a single vertex buffer that will ocupy the first binding at index  
 		//the stride is the size of the vertex in bytes
-
+		// 
+		// Doesnt change with the addition of the color bc we do   sizeof(Vertex)
 	}
 
 
 	std::vector<VkVertexInputAttributeDescription> LveModel::Vertex::getAttributeDescriptions()
 	{
-		std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
+		std::vector<VkVertexInputAttributeDescription> attributeDescriptions(2);
+		//Position
 		attributeDescriptions[0].binding = 0; // This is  for the binding 0
 		attributeDescriptions[0].location = 0; // that correspond to the location specific in the vertex shaders => layout(location=0) in vec2 position;
 		attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT; // specify the data type , there are 2 component and each of them are 32 bit signed floats
-		attributeDescriptions[0].offset = 0;
+		attributeDescriptions[0].offset = offsetof(Vertex, position); // this function automatically will calculate the byte offset of the color in the vertex struct;
+		//Color
+		attributeDescriptions[1].binding = 0; // Still 0 becasuee we interleaving position and color in one buffer
+		attributeDescriptions[1].location = 1; // needs to match the lcoation used in the vertex shader which is 1 
+		attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT; //  Vec3 here 
+		attributeDescriptions[1].offset = offsetof(Vertex,color); // this function automatically will calculate the byte offset of the color in the vertex struct
+
 		return attributeDescriptions;
 	}
 	

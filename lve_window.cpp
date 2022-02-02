@@ -38,7 +38,8 @@ namespace lve {
 	{
 		glfwInit(); // initialise the glfw library
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API); // to force GLFW not to open an OPENGL window has we are using vulkan 
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE); // to avoid windows resizing the window
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // Resizing window in GLFW , but we need to implement SwapChain recreation ! As when we created it , it was with 
+		//a sepcific window in mind .
 
 		window = glfwCreateWindow(width, height, windowname.c_str(), nullptr, nullptr); // we get the pointer of the window 
 	}

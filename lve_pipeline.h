@@ -47,7 +47,7 @@ namespace lve {
 
 		LvePipeline(const LvePipeline&) = delete; // delete the default copy constructor https://www.youtube.com/watch?v=BvR1Pgzzr38&t=590s
 		// we want to avoid  duplicating the pointer to our vulkan object by mistake
-		void operator=(const LvePipeline&) = delete;
+		LvePipeline& operator=(const LvePipeline&) = delete;
 
 
 

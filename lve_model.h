@@ -24,7 +24,9 @@ namespace lve
 
 		struct Vertex
 		{
-			glm::vec2 posistion;
+			glm::vec2 position;
+			glm::vec3 color; // Color added on lesson 7 Talks about SIMD
+
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();
 		};

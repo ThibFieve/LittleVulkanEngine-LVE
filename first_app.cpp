@@ -69,15 +69,16 @@ namespace lve {
 
 		// FOR A SIMPLE TESTING TRIANGLE 
 		
-		//std::vector<LveModel::Vertex> vertices{ // this { initialise the vector
-		//	{{0.0f,-0.5f}}, // { this is for the struct{ this is a tuple , glm:vec2 position}}
-		//	{{0.5f,0.5f}},
-		//	{{-0.5f,0.5f}},
-		//};
+		std::vector<LveModel::Vertex> vertices{ // this { initialise the vector
+			{{0.0f,-0.5f},{1.0f,0.0f,0.0f}}, // { this is for the struct{ this is a tuple , glm:vec2 position},{glm:vec3 color}}
+			{{0.5f,0.5f},{0.0f,1.0f,0.0f}},
+			{{-0.5f,0.5f},{0.0f,0.0f,1.0f}},
+		};
 
-		// For 
+		/* For  Sierpinski solution
 		std::vector<LveModel::Vertex> vertices{};
 		sierpinski(vertices, 5, { -0.5f, 0.5f }, { 0.5f, 0.5f }, { 0.0f, -0.5f });
+		*/
 
 		lveModel = std::make_unique<LveModel>(lveDevice, vertices);
 	}
