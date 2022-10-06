@@ -18,4 +18,4 @@ https://github.com/ThibFieve/LittleVulkanEngine-LVE/blob/main/Documentation/Litt
 
 
 
-IMPORTANT REMARK: If you download the whole directory make sure to setup Visual Studio code to X64 debug. As I have just included the Lib64 libraries from vulkam.
+IMPORTANT REMARK: If you download the whole directory make sure to setup Visual Studio code to X64 debug. As I have just included the Lib64 libraries from Vulkan.
