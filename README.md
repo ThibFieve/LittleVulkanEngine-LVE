@@ -15,3 +15,7 @@ https://github.com/ThibFieve/LittleVulkanEngine-LVE/blob/main/Documentation/Litt
 <img width="1196" alt="Pwp3" src="https://user-images.githubusercontent.com/17762123/151332533-f40be0cd-1a76-47e0-9fa3-e1091c3677e7.PNG">
 
 <img width="1189" alt="Pwp4" src="https://user-images.githubusercontent.com/17762123/151332541-b8137930-e717-450b-a880-c77a55b3fd52.PNG">
+
+
+Remark: The VULKAN and GLFW libraries are missing from the repo and should be placed in the ExternalLibraries folder with glm as following :
+![HowTo](https://user-images.githubusercontent.com/17762123/194338943-ef9d646b-c5ff-44b7-a26e-ea11a0929ea1.png)
