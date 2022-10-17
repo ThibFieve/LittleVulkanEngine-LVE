@@ -20,7 +20,7 @@ namespace lve {
 		LveWindow(const LveWindow&) = delete; //https://www.youtube.com/watch?v=BvR1Pgzzr38
 		LveWindow& operator = (const LveWindow&) = delete;
 		// see shallow and deep copies , 
-		// PS ALWASY PASS OBJECT SA CONST REFERENCE ! ALWAYS BETTER FOR OPTIMISATION
+		// PS ALWAYS PASS OBJECT AS CONST REFERENCE ! ALWAYS BETTER FOR OPTIMISATION
 		
 		// Getter Function
 		VkExtent2D getExtent() { return { static_cast<uint32_t>(width),static_cast<uint32_t>(height) }; }
@@ -28,12 +28,20 @@ namespace lve {
 
 		bool shouldClose() { return glfwWindowShouldClose(window); } // in lining is the idea of putting everything here in one line , as it is pretty short
 
+		bool wasWindowResized() { return framebufferResized; };  // Helper Function for resizing
+		void resetWindowResizedFlag() { framebufferResized = false; }// Helper Function for resizing
+
 		void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 	private:
 		
+		static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+		// This static means it can only been seen from inside this translation unit (lve_window.h + lve_window.cpp)
+
 		void initWindows();
-		const int width;
-		const int height;
+		int width; // Not const anymore as window becomes rezisable
+		int height;
+		bool framebufferResized = false; //this is to keep track if the window has been resized
+		// and need to create a new SwapChain
 
 		std::string windowname;
 		GLFWwindow* window;

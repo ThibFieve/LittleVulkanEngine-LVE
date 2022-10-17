@@ -34,6 +34,8 @@ namespace lve {
 		}
 	}
 
+	
+
 	void LveWindow::initWindows()
 	{
 		glfwInit(); // initialise the glfw library
@@ -42,6 +44,18 @@ namespace lve {
 		//a sepcific window in mind .
 
 		window = glfwCreateWindow(width, height, windowname.c_str(), nullptr, nullptr); // we get the pointer of the window 
+		glfwSetWindowUserPointer(window, this); // allows to pair the window pointer object to an arbitrary pointer value, in this case the parent lve_window object
+		glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);// The GLFW library allows us to register a 
+		// callback function , that whenever the window is rezised, this function gets called  with window pointer , new width and height as input.
+
+	}
+	
+	void LveWindow::framebufferResizeCallback(GLFWwindow* window, int width, int height)
+	{
+		auto lveWindow = reinterpret_cast<LveWindow*>(glfwGetWindowUserPointer(window)); // cast into a LVEWindow pointer
+		lveWindow->framebufferResized = true;
+		lveWindow->width = width;
+		lveWindow->height = height;
 	}
 
 

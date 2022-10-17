@@ -16,8 +16,6 @@ namespace lve {
 		PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
 		PipelineConfigInfo() = default;// default constructor
 		VkPipelineViewportStateCreateInfo viewportInfo;
-		VkViewport viewport;
-		VkRect2D scissor;
 		//VkPipelineViewportStateCreateInfo viewportInfo; Fixing mistake
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
@@ -29,7 +27,9 @@ namespace lve {
 		VkRenderPass renderPass = nullptr;// we dont provide any default fir this members and we will set them outside of defaultPipelineConfigInfo
 		uint32_t subpass = 0;// we dont provide any default fir this members and we will set them outside of defaultPipelineConfigInfo
 
-
+		//For DynamicViewport
+		std::vector<VkDynamicState> dynamicStateEnables;
+		VkPipelineDynamicStateCreateInfo dynamicStateInfo;
 
 	};
 	// The reason it's out of pipeline class is because we want our application layer to be easily able to reach and configure a pipeline compeltely as well as to sahre
@@ -48,12 +48,13 @@ namespace lve {
 		LvePipeline(const LvePipeline&) = delete; // delete the default copy constructor https://www.youtube.com/watch?v=BvR1Pgzzr38&t=590s
 		// we want to avoid  duplicating the pointer to our vulkan object by mistake
 		LvePipeline& operator=(const LvePipeline&) = delete;
+		LvePipeline() = default;
 
 
 
 		void bind(VkCommandBuffer commandBuffer);// bind graphic pipeline to a commandbuffer
 
-		static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo, uint32_t width, uint32_t height);// static function to create a default  PipelineConficInfo structure
+		static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);// static function to create a default  PipelineConficInfo structure
 
 	private:
 		static std::vector<char> readFile(const std::string& filepath); // returns a string of char , takes in a ref of a string

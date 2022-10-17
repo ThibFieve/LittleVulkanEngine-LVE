@@ -1,0 +1,40 @@
+﻿  first_app.cpp
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkPipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,37): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2439: 'lve::PipelineConfigInfo::pipelineLayout': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28): message : see declaration of 'lve::PipelineConfigInfo::pipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkRenderPass'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,29): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2439: 'lve::PipelineConfigInfo::renderPass': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29): message : see declaration of 'lve::PipelineConfigInfo::renderPass'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,37): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkPipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,37): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,29): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkRenderPass'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,29): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\first_app.cpp(138,21): warning C4018: '<': signed/unsigned mismatch
+  lve_pipeline.cpp
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkPipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,37): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2439: 'lve::PipelineConfigInfo::pipelineLayout': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28): message : see declaration of 'lve::PipelineConfigInfo::pipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkRenderPass'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,29): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2439: 'lve::PipelineConfigInfo::renderPass': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29): message : see declaration of 'lve::PipelineConfigInfo::renderPass'
+  main.cpp
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkPipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,37): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28,35): error C2439: 'lve::PipelineConfigInfo::pipelineLayout': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(28): message : see declaration of 'lve::PipelineConfigInfo::pipelineLayout'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2440: 'initializing': cannot convert from 'nullptr' to 'VkRenderPass'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,29): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29,27): error C2439: 'lve::PipelineConfigInfo::renderPass': member could not be initialized
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_pipeline.h(29): message : see declaration of 'lve::PipelineConfigInfo::renderPass'
+  lve_swap_chain.cpp
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(37,27): error C2446: '!=': no conversion from 'nullptr' to 'VkSwapchainKHR'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(37,20): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(39,24): error C2440: '=': cannot convert from 'nullptr' to 'VkSwapchainKHR'
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(39,17): message : A native nullptr can only be converted to bool or, using reinterpret_cast, to an integral type
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(42,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\thibault.fievez\OneDrive - Flanders Make vzw\Documents\ComputerGraphic\LittleVulkanEngine-LVE\lve_swap_chain.cpp(308,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...

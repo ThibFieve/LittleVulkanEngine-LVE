@@ -139,7 +139,7 @@ namespace lve {
 		pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
 		pipelineInfo.pColorBlendState = &configInfo.colorBlendInfo;
 		pipelineInfo.pDepthStencilState = &configInfo.depthStencilInfo;// optional setting for changing the pipeline dynamically without needing to recreate the pipeline
-		pipelineInfo.pDynamicState = nullptr;
+		pipelineInfo.pDynamicState = &configInfo.dynamicStateInfo;;
 
 		pipelineInfo.layout = configInfo.pipelineLayout;  // WE HAVE NOT CONFIGURED THOSE YET SO IF WE RUN THE PROGRAM WE WILL GET AN ERROR CRASH ,// now it is done in first app
 		pipelineInfo.renderPass = configInfo.renderPass;// WE WILL SEE BY RUNNING THAT THE VALIDATION LAYER HELPS US OUT TO FIND THE ISSUE , toerhwise it would crash we would not know why  , right now assigned to nullptr
@@ -182,7 +182,7 @@ namespace lve {
 
 
 	void LvePipeline::defaultPipelineConfigInfo(
-		PipelineConfigInfo& configInfo, uint32_t width, uint32_t height) {
+		PipelineConfigInfo& configInfo) {
 		//REALLY INTERESTING AND IMPORANT TO UNDERSTAND THOSE //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 
 
@@ -202,7 +202,7 @@ namespace lve {
 
 
 
-
+		/* This was before making a dynamic viewport, then the viewport was part of the pipeline creation now it is fed in a command buffer
 
 		//configure viewport and scissor////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//viewport describe the transforamtion between our pipleine output and target image
@@ -218,13 +218,15 @@ namespace lve {
 		configInfo.scissor.offset = { 0, 0 }; // everytrianglkke outisde of the scissor rectangle will be discarded , it is culling ,view fustrum
 		configInfo.scissor.extent = { width, height };
 
+		*/
+		
 		//Self referencing bug
 
 		configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 		configInfo.viewportInfo.viewportCount = 1;
-		configInfo.viewportInfo.pViewports = &configInfo.viewport;
+		configInfo.viewportInfo.pViewports =nullptr;
 		configInfo.viewportInfo.scissorCount = 1;
-		configInfo.viewportInfo.pScissors = &configInfo.scissor;
+		configInfo.viewportInfo.pScissors = nullptr;
 
 
 
@@ -312,6 +314,14 @@ namespace lve {
 		configInfo.depthStencilInfo.back = {};   // Optional
 
 
+
+		// Added with dynamic viewport
+		//Configure the pipeline to expect a dynamic viewport and dynamic scissors to be provided later
+		configInfo.dynamicStateEnables = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+		configInfo.dynamicStateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+		configInfo.dynamicStateInfo.pDynamicStates = configInfo.dynamicStateEnables.data();
+		configInfo.dynamicStateInfo.dynamicStateCount = static_cast<uint32_t>(configInfo.dynamicStateEnables.size());
+		configInfo.dynamicStateInfo.flags = 0;
 	
 	 }
 

@@ -31,18 +31,26 @@ namespace lve {
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers(); // in vulkan , no directly command with function calls , we use a command buffer that stores instrcution and goes in a device queue to be executed , this allow for sequences of command to be recorded 
+		void freeCommandBuffers();
 		void drawFrame();
+		
+		// For widow resizing
+		void recreateSwapChain();
+		void recordCommandBuffer(int imageIndex);
+
+
 
 		void sierpinski(std::vector<LveModel::Vertex>& vertices, int depth, glm::vec2 left, glm::vec2 right, glm::vec2 top);
 
 		LveWindow lveWindow{ WIDTH, HEIGHT,"Hello Vulkan!" }; //https://www.youtube.com/watch?v=1nfuYMXjZsA   , https://www.youtube.com/watch?v=FXhALMsHwEY&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=25
 		// not using a pointer or any dynamic memory allocation 
 		//// here he put {} instead of () , this is a way to initainalise value with the constructor ! calling a csontrcutor from a header file 
-		// is this due to C++ 17 ?  https://en.cppreference.com/w/cpp/language/constructor
+		//   https://en.cppreference.com/w/cpp/language/constructor
 		//
 		LveDevice lveDevice{ lveWindow };
-		LveSwapChain lveSwapChain{ lveDevice , lveWindow.getExtent() }; // HERE ORDER MATTERS ! varaibles intialised top to bottom
-		
+		std::unique_ptr<LveSwapChain> lveSwapChain; //we change this and use a unique pointer instead of a stack allocated variable in order to be able to  easily create a new swapchain with updated width and height simply by constructing a new object 
+		//, pointer has a small performance cost tho
+
 		std::unique_ptr<LvePipeline> lvePipeline; // Smart pointer  https://www.youtube.com/watch?v=UOB7-B2MfwA , automamte the new , delete thing to allocate memory on the stack.
 		// Unique poitner is a scoped poitner , when we going out of scope this pointer is deleted , you cant copy a unique pointer , stack allocator object
 		VkPipelineLayout pipelineLayout;
